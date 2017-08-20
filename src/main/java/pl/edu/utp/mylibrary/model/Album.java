@@ -16,7 +16,7 @@ import javax.persistence.Id;
  * @author nowakowska joanna
  */
 @Entity
-public class Movie implements Serializable {
+public class Album implements Serializable {
 
     /**
      * Fields
@@ -27,32 +27,30 @@ public class Movie implements Serializable {
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
-    private String director;
+    private String artist;
     @Column(nullable = false)
     private String year;
-    @Column(nullable = true)
-    private String country;
     @Column(nullable = true)
     private String genre;
 
     /**
      * Constructors
      */
-    public Movie() {
+    public Album() {
     }
 
-    public Movie(Long id, String title, String director, String year, String country, String genre) {
+    public Album(Long id, String title, String artist, String year, String genre) {
         this.id = id;
         this.title = title;
-        this.director = director;
+        this.artist = artist;
         this.year = year;
-        this.country = country;
         this.genre = genre;
     }
 
     /**
      * Getters and Setters
      */
+
     public Long getId() {
         return id;
     }
@@ -69,12 +67,12 @@ public class Movie implements Serializable {
         this.title = title;
     }
 
-    public String getDirector() {
-        return director;
+    public String getArtist() {
+        return artist;
     }
 
-    public void setDirector(String director) {
-        this.director = director;
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
     public String getYear() {
@@ -83,14 +81,6 @@ public class Movie implements Serializable {
 
     public void setYear(String year) {
         this.year = year;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public String getGenre() {
