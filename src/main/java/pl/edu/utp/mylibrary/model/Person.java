@@ -6,13 +6,18 @@
 package pl.edu.utp.mylibrary.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -27,23 +32,39 @@ public class Person implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String firstname;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String lastname;
     @Column(nullable = false, unique = true)
     private String login;
     @Column(nullable = false)
     private String password;
-    @Column(nullable = false)
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = Book.class)
-    private List<Book> books;
-    @Column(nullable = false)
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = Album.class)
-    private List<Album> albums;
-    @Column(nullable = false)
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = Movie.class)
-    private List<Movie> movies;
+
+    @Column(nullable = true)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "PERSON_BOOK",
+            joinColumns = {@JoinColumn(name = "PERSON_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "BOOK_ID")})
+    private Set<Book> books = new HashSet<>();
+
+    @Column(nullable = true)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "PERSON_ALBUM",
+            joinColumns = {
+                @JoinColumn(name = "PERSON_ID")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "ALBUM_ID")})
+    private Set<Album> albums = new HashSet<>();
+
+    @Column(nullable = true)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "PERSON_MOVIE",
+            joinColumns = {
+                @JoinColumn(name = "PERSON_ID")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "MOVIE_ID")})
+    private Set<Movie> movies = new HashSet<>();
 
     /**
      * Constructors
@@ -51,7 +72,15 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(Long id, String firstname, String lastname, String login, String password, List<Book> books, List<Album> albums, List<Movie> movies) {
+    public Person(Long id, String firstname, String lastname, String login, String password) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.login = login;
+        this.password = password;
+    }
+
+    public Person(Long id, String firstname, String lastname, String login, String password, Set<Book> books, Set<Album> albums, Set<Movie> movies) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -67,10 +96,6 @@ public class Person implements Serializable {
      */
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstname() {
@@ -105,27 +130,93 @@ public class Person implements Serializable {
         this.password = password;
     }
 
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 
-    public List<Album> getAlbums() {
+    public Set<Album> getAlbums() {
         return albums;
     }
 
-    public void setAlbums(List<Album> albums) {
+    public void setAlbums(Set<Album> albums) {
         this.albums = albums;
     }
 
-    public List<Movie> getMovies() {
+    public Set<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(List<Movie> movies) {
+    public void setMovies(Set<Movie> movies) {
         this.movies = movies;
     }
+
+    /**
+     * Euals and HashCode
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.firstname);
+        hash = 97 * hash + Objects.hashCode(this.lastname);
+        hash = 97 * hash + Objects.hashCode(this.login);
+        hash = 97 * hash + Objects.hashCode(this.password);
+        hash = 97 * hash + Objects.hashCode(this.books);
+        hash = 97 * hash + Objects.hashCode(this.albums);
+        hash = 97 * hash + Objects.hashCode(this.movies);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Person other = (Person) obj;
+        if (!Objects.equals(this.firstname, other.firstname)) {
+            return false;
+        }
+        if (!Objects.equals(this.lastname, other.lastname)) {
+            return false;
+        }
+        if (!Objects.equals(this.login, other.login)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.books, other.books)) {
+            return false;
+        }
+        if (!Objects.equals(this.albums, other.albums)) {
+            return false;
+        }
+        if (!Objects.equals(this.movies, other.movies)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * ToString
+     */
+    @Override
+    public String toString() {
+        return "Person{" + "id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", login=" + login + ", password=" + password + ", books="
+                + books + ", albums=" + albums + ", movies=" + movies + '}';
+    }
+
 }

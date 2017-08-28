@@ -6,6 +6,7 @@
 package pl.edu.utp.mylibrary.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,7 @@ public class Album implements Serializable {
     private String artist;
     @Column(nullable = false)
     private String year;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String genre;
 
     /**
@@ -50,13 +51,8 @@ public class Album implements Serializable {
     /**
      * Getters and Setters
      */
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -89,6 +85,58 @@ public class Album implements Serializable {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    /**
+     * Equals and HashCode
+     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + Objects.hashCode(this.id);
+        hash = 83 * hash + Objects.hashCode(this.title);
+        hash = 83 * hash + Objects.hashCode(this.artist);
+        hash = 83 * hash + Objects.hashCode(this.year);
+        hash = 83 * hash + Objects.hashCode(this.genre);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Album other = (Album) obj;
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.artist, other.artist)) {
+            return false;
+        }
+        if (!Objects.equals(this.year, other.year)) {
+            return false;
+        }
+        if (!Objects.equals(this.genre, other.genre)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * ToString
+     */
+    @Override
+    public String toString() {
+        return "Album{" + "id=" + id + ", title=" + title + ", artist=" + artist + ", year=" + year + ", genre=" + genre + '}';
     }
 
 }

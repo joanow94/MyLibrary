@@ -36,7 +36,7 @@ public class JpaConfiguration {
 
     @Bean
     public DataSource dataSource() throws NamingException {
-        return new JndiTemplate().lookup("java:/MyLibraryDS", DataSource.class);
+        return new JndiTemplate().lookup("java:/PostgresDS", DataSource.class);
     }
 
     @Bean
@@ -59,7 +59,7 @@ public class JpaConfiguration {
     final Properties additionalProperties() {
         final Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
         properties.setProperty("hibernate.show.sql", "false");
         return properties;
     }
