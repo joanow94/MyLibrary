@@ -24,7 +24,7 @@ import javax.persistence.ManyToMany;
  * @author nowakowska joanna
  */
 @Entity
-public class Person implements Serializable {
+public class UserInfo implements Serializable {
 
     /**
      * Fields
@@ -43,25 +43,27 @@ public class Person implements Serializable {
 
     @Column(nullable = true)
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "PERSON_BOOK",
-            joinColumns = {@JoinColumn(name = "PERSON_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "BOOK_ID")})
+    @JoinTable(name = "USERINFO_BOOK",
+            joinColumns = {
+                @JoinColumn(name = "USERINFO_ID")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "BOOK_ID")})
     private Set<Book> books = new HashSet<>();
 
     @Column(nullable = true)
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "PERSON_ALBUM",
+    @JoinTable(name = "USERINFO_ALBUM",
             joinColumns = {
-                @JoinColumn(name = "PERSON_ID")},
+                @JoinColumn(name = "USERINFO_ID")},
             inverseJoinColumns = {
                 @JoinColumn(name = "ALBUM_ID")})
     private Set<Album> albums = new HashSet<>();
 
     @Column(nullable = true)
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "PERSON_MOVIE",
+    @JoinTable(name = "USERINFO_MOVIE",
             joinColumns = {
-                @JoinColumn(name = "PERSON_ID")},
+                @JoinColumn(name = "USERINFO_ID")},
             inverseJoinColumns = {
                 @JoinColumn(name = "MOVIE_ID")})
     private Set<Movie> movies = new HashSet<>();
@@ -69,10 +71,10 @@ public class Person implements Serializable {
     /**
      * Constructors
      */
-    public Person() {
+    public UserInfo() {
     }
 
-    public Person(Long id, String firstname, String lastname, String login, String password) {
+    public UserInfo(Long id, String firstname, String lastname, String login, String password) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -80,7 +82,7 @@ public class Person implements Serializable {
         this.password = password;
     }
 
-    public Person(Long id, String firstname, String lastname, String login, String password, Set<Book> books, Set<Album> albums, Set<Movie> movies) {
+    public UserInfo(Long id, String firstname, String lastname, String login, String password, Set<Book> books, Set<Album> albums, Set<Movie> movies) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -182,7 +184,7 @@ public class Person implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Person other = (Person) obj;
+        final UserInfo other = (UserInfo) obj;
         if (!Objects.equals(this.firstname, other.firstname)) {
             return false;
         }
@@ -210,13 +212,8 @@ public class Person implements Serializable {
         return true;
     }
 
-    /**
-     * ToString
-     */
     @Override
     public String toString() {
-        return "Person{" + "id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", login=" + login + ", password=" + password + ", books="
-                + books + ", albums=" + albums + ", movies=" + movies + '}';
+        return "User{" + "id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", login=" + login + ", password=" + password + ", books=" + books + ", albums=" + albums + ", movies=" + movies + '}';
     }
-
 }

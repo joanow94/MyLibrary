@@ -8,22 +8,18 @@ package pl.edu.utp.mylibrary.repository;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.edu.utp.mylibrary.model.Person;
+import pl.edu.utp.mylibrary.model.UserInfo;
 
 /**
  *
  * @author jnowakowska
  */
 @Repository
-public interface PersonRepository extends JpaRepository<Person, Long> {
-
-    public Person signUp(Person person);
-
-    public Person signIn(String login, String password);
+public interface UserRepository extends JpaRepository<UserInfo, Long> {
 
     @Override
-    public List<Person> findAll();
+    public List<UserInfo> findAll();
 
     @Override
-    public void delete(Person person);
+    public void delete(UserInfo user);
 }

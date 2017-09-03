@@ -48,13 +48,13 @@
             <version>${spring.framework.version}</version>
         </dependency>
 
-        <!--Springa Data Jpa-->
+        <!--Spring Data Jpa-->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
             <version>${spring.data.jpa.version}</version>
         </dependency>
-
+        
         <!--Hibernate-->
         <dependency>
             <groupId>org.hibernate</groupId>
