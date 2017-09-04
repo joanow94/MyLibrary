@@ -8,17 +8,25 @@ package pl.edu.utp.mylibrary.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
  * @author nowakowska joanna
  */
 @Controller
-@RequestMapping("/")
-public class MainController {
+@RequestMapping("/logowanie")
+public class LoginController {
 
     @RequestMapping("")
-    public String index(Model model) {
-        return "index";
+    public String getLoginForm() {
+        return "login";
+    }
+
+    @RequestMapping("/zaloguj")
+    public String login(Model model, @RequestParam("login") String login, @RequestParam("password") String password) {
+        //userLogin
+        //addAtribute
+        return "home";
     }
 }
