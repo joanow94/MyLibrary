@@ -14,11 +14,11 @@ import pl.edu.utp.mylibrary.repository.UserRepository;
 
 /**
  *
- * @author jnowakowska
+ * @author jnowakowska TODO: !
  */
 @Service
 @Transactional
-public class UserService{
+public class UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -48,23 +48,23 @@ public class UserService{
      * @param password
      * @return
      */
-//    public UserInfo login(String login, String password) {
-//        for (UserInfo p : personRepository.findAll()) {
-//            if (p.getLogin().equals(login) && p.getPassword().equals(password)) {
-//                return p;
-//            }
-//        }
-//        return null;
-//    }
+    public UserInfo login(String login, String password) {
+        for (UserInfo u : userRepository.findAll()) {
+            if (u.getLogin().equals(login) && u.getPassword().equals(password)) {
+                return u;
+            }
+        }
+        return null;
+    }
 
-//    /**
-//     * Sign Up
-//     *
-//     * @param person
-//     * @return
-//     */
-//    public Person signUp(Person person) {
-//        personRepository.save(person);
-//        return person;
-//    }
+    /**
+     * addUser
+     *
+     * @param user
+     * @return
+     */
+    public UserInfo addUser(UserInfo user) {
+        userRepository.save(user);
+        return user;
+    }
 }

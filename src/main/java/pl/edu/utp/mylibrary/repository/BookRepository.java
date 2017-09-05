@@ -5,7 +5,10 @@
  */
 package pl.edu.utp.mylibrary.repository;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.edu.utp.mylibrary.model.Book;
 
@@ -16,4 +19,11 @@ import pl.edu.utp.mylibrary.model.Book;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 
+    @Query(value = "SELECT b FROM Book b WHERE "
+            + "LOWER(b.title) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR "
+            + "LOWER(b.author) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR "
+            + "LOWER(b.publisher) LIKE LOWER(CONCAT('%',:searchTerm, '%'))",
+            nativeQuery = true
+    )
+    List<Book> findBySearchTerm(@Param("searchTerm") String searchTerm);
 }

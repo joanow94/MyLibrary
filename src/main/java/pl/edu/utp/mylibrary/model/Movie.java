@@ -35,6 +35,8 @@ public class Movie implements Serializable {
     private String country;
     @Column(nullable = false)
     private String genre;
+    @Column(nullable = true)
+    private String mark;
 
     /**
      * Constructors
@@ -96,6 +98,14 @@ public class Movie implements Serializable {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
     }
 
     /**

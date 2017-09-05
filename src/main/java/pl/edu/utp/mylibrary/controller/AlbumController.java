@@ -5,8 +5,16 @@
  */
 package pl.edu.utp.mylibrary.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import pl.edu.utp.mylibrary.enums.ErrorInfo;
+import pl.edu.utp.mylibrary.helper.ItemValidator;
+import pl.edu.utp.mylibrary.model.UserInfo;
 import pl.edu.utp.mylibrary.service.AlbumService;
 
 /**
@@ -14,8 +22,68 @@ import pl.edu.utp.mylibrary.service.AlbumService;
  * @author jnowakowska
  */
 @Controller
+@RequestMapping("/albums")
 public class AlbumController {
 
     @Autowired
     private AlbumService albumService;
+
+    private ItemValidator itemValidator;
+
+    //TODO: tymczasowo przed logowaniem 
+    UserInfo user;
+
+    @RequestMapping("")
+    public String albums(Model model) {
+        model.addAttribute("userAlbums", albumService.findAllFromUser(user));
+        return "albums";
+    }
+
+    @RequestMapping("/delete/{id}")
+    public String deleteAlbum(Model model, @PathVariable("id") String id) {
+        albumService.deleteFromUser(user, Long.parseLong(id));
+        //TODO: co z tym odświeżaniem
+        model.addAttribute("userAlbums", albumService.findAllFromUser(user));
+        return "albums";
+    }
+
+    @RequestMapping("/search")
+    public String searchAlbum(Model model) {
+        model.addAttribute("allAlbums", albumService.findAll());
+        return "searchAlbum";
+    }
+
+    @RequestMapping("/search/results")
+    public String findBySearchTerm(Model model, @RequestParam("searchTerm") String searchTerm) {
+        model.addAttribute("resultAlbums", albumService.findBySearchTerm(searchTerm));
+        return "searchAlbum";
+    }
+
+    @RequestMapping("/search/add/{id}")
+    public String addAlbumToUser(Model model, @PathVariable("id") String id) {
+        albumService.addToUser(user, Long.parseLong(id));
+        return "searchAlbum";
+    }
+
+    @RequestMapping("/addNew")
+    public String getAddNewAlbumForm() {
+        return "addNewAlbum";
+    }
+
+    @RequestMapping("/addNew/add")
+    public String addNewAlbum(Model model, @RequestParam("title") String title, @RequestParam("artist") String artist, @RequestParam("year") String year, @RequestParam("genre") String genre) {
+        List<ErrorInfo> errors = itemValidator.validateAlbum(title, artist, year, genre);
+        if (null == errors || errors.isEmpty()) {
+            albumService.addAlbum(title, artist, year, genre);
+            //TODO: jak dodać do użytkownika ??
+            //albumService.addAlbumToUser(user, Long.parseLong(id));
+            model.addAttribute("userAlbums", albumService.findAllFromUser(user));
+            return "albums";
+        } else {
+            model.addAttribute("validationAlbumErrors", errors);
+            return "addNewAlbum";
+        }
+
+    }
+
 }

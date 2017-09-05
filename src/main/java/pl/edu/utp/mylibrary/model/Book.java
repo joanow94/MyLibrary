@@ -31,6 +31,8 @@ public class Book implements Serializable {
     private String author;
     @Column(nullable = false)
     private String publisher;
+    @Column(nullable = true)
+    private String mark;
 
     /**
      * Constructors
@@ -74,6 +76,14 @@ public class Book implements Serializable {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
     }
 
     /**

@@ -17,9 +17,4 @@ import pl.edu.utp.mylibrary.model.UserInfo;
 @Repository
 public interface UserRepository extends JpaRepository<UserInfo, Long> {
 
-    @Override
-    public List<UserInfo> findAll();
-
-    @Override
-    public void delete(UserInfo user);
 }
