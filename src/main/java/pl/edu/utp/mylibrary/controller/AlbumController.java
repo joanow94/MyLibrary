@@ -72,15 +72,24 @@ public class AlbumController {
 
     @RequestMapping("/addNew/add")
     public String addNewAlbum(Model model, @RequestParam("title") String title, @RequestParam("artist") String artist, @RequestParam("year") String year, @RequestParam("genre") String genre) {
-        List<ErrorInfo> errors = itemValidator.validateAlbum(title, artist, year, genre);
-        if (null == errors || errors.isEmpty()) {
+        if (itemValidator.isCorrectAlbum(title, artist, year, genre)) {
             albumService.addAlbum(title, artist, year, genre);
-            //TODO: jak dodać do użytkownika ??
-            //albumService.addAlbumToUser(user, Long.parseLong(id));
+            //TODO: dodac do usera
             model.addAttribute("userAlbums", albumService.findAllFromUser(user));
             return "albums";
         } else {
-            model.addAttribute("validationAlbumErrors", errors);
+            if (null != itemValidator.validateField(title)) {
+                model.addAttribute("titleError", itemValidator.validateField(title));
+            }
+            if (null != itemValidator.validateField(artist)) {
+                model.addAttribute("artistError", itemValidator.validateField(artist));
+            }
+            if (null != itemValidator.validateField(year)) {
+                model.addAttribute("yearError", itemValidator.validateField(year));
+            }
+            if (null != itemValidator.validateField(genre)) {
+                model.addAttribute("genreError", itemValidator.validateField(genre));
+            }
             return "addNewAlbum";
         }
 

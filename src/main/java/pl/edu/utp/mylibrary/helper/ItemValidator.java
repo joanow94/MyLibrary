@@ -5,7 +5,6 @@
  */
 package pl.edu.utp.mylibrary.helper;
 
-import java.util.List;
 import pl.edu.utp.mylibrary.enums.ErrorInfo;
 
 /**
@@ -14,16 +13,26 @@ import pl.edu.utp.mylibrary.enums.ErrorInfo;
  */
 public class ItemValidator {
 
-    public List<ErrorInfo> validateAlbum(String title, String artist, String year, String genre) {
-        return null;
+    public Boolean isCorrectAlbum(String title, String artist, String year, String genre) {
+        return (null == validateField(title) && null == validateField(artist) && null == validateField(year) && null == validateField(genre)) ? true : false;
     }
 
-    public List<ErrorInfo> validateBook(String title, String author, String publisher) {
-        return null;
+    public Boolean isCorrectBook(String title, String author, String publisher) {
+        return (null == validateField(title) && null == validateField(author) && null == validateField(publisher)) ? true : false;
     }
 
-    public List<ErrorInfo> validateMovie(String title, String director, String year, String country, String genre) {
-        return null;
+    public Boolean isCorrectMovie(String title, String director, String year, String country, String genre) {
+        return (null == validateField(title) && null == validateField(director) && null == validateField(year) && null == validateField(country) && null == validateField(genre)) ? true : false;
+    }
+
+    public String validateField(String stringField) {
+        if (null == stringField || stringField.length() < 1) {
+            return ErrorInfo.EMPTY_FIELD.getInfo();
+        } else if (stringField.length() > 50) {
+            return ErrorInfo.MAX_LENGTH.getInfo();
+        } else {
+            return null;
+        }
     }
 
 }

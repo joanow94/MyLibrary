@@ -42,6 +42,15 @@ public class UserService {
     }
 
     /**
+     * addUser
+     *
+     * @param user
+     */
+    public void addUser(UserInfo user) {
+        userRepository.save(user);
+    }
+
+    /**
      * Login
      *
      * @param login
@@ -55,16 +64,5 @@ public class UserService {
             }
         }
         return null;
-    }
-
-    /**
-     * addUser
-     *
-     * @param user
-     * @return
-     */
-    public UserInfo addUser(UserInfo user) {
-        userRepository.save(user);
-        return user;
     }
 }

@@ -10,8 +10,12 @@ package pl.edu.utp.mylibrary.enums;
  * @author nowakowska joanna
  */
 public enum ErrorInfo {
-    LOGIN("Niepoprawny login lub hasło!"),
-    MAX_LENGTH("Przekroczono dozwoloną ilość znaków");
+    LOGIN_PASSWORD("Niepoprawny login lub hasło!"),
+    MAX_LENGTH("Przekroczono dozwoloną ilość znaków"),
+    MIN_LENGTH("Za mała ilość znaków"),
+    PASSWORDS("Hasła różnią się"),
+    LOGIN_UNIQUE("Login jest zajęty"),
+    EMPTY_FIELD("Pole wymagane jest puste");
 
     private String info;
 

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    >
+
+    <h:head>
+
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title>MyLibrary</title>
+
+        <!-- Bootstrap core CSS -->
+        <h:outputStylesheet library="css" name="bootstrap.min.css"  />
+        <h:outputStylesheet library="css" name="sb-admin-2.min.css"  />
+        <!-- Custom styles for this template -->
+        <h:outputStylesheet library="css" name="half-slider.css"  />
+
+        <!-- Bootstrap core JavaScript -->
+        <h:outputScript library="js" name="jquery.min.js" />
+        <h:outputScript library="js" name="popper.min.js" />
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="sb-admin-2.min.js" />
+
+    </h:head>
+    <body>
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">MyLibrary</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Biblioteka
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Ranking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Wyloguj się</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="container">
+            <section id="login">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Logowanie</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="Wpisz login"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="Wpisz hasło"/>
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Zaloguj się</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>

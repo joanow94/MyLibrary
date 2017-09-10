@@ -5,13 +5,11 @@
  */
 package pl.edu.utp.mylibrary.controller;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.edu.utp.mylibrary.enums.ErrorInfo;
 import pl.edu.utp.mylibrary.helper.RegisterValidator;
 import pl.edu.utp.mylibrary.model.UserInfo;
 import pl.edu.utp.mylibrary.service.UserService;
@@ -36,14 +34,27 @@ public class RegisterController {
 
     @RequestMapping("/registerProcess")
     public String register(Model model, @RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname, @RequestParam("login") String login, @RequestParam("password") String password, @RequestParam("confirmPassword") String confirmPassword) {
-        List<ErrorInfo> errors = registerValidator.execute(firstname, lastname, login, password, confirmPassword);
-        if (null == errors || errors.isEmpty()) {
+        if (registerValidator.isCorrect(firstname, lastname, login, password, confirmPassword)) {
             userService.addUser(new UserInfo(Long.MIN_VALUE, firstname, lastname, login, password));
-//            model.addAttribute("user", user);
-            //TODO: czy trzeba znów dodawać books itp...
+            //TODO: dodawanie do usera
             return "home";
         } else {
-            model.addAttribute("ValidationErrors", errors);
+            if (null != registerValidator.validateStringField(firstname)) {
+                model.addAttribute("firstnameError", registerValidator.validateStringField(firstname));
+            }
+            if (null != registerValidator.validateStringField(lastname)) {
+                model.addAttribute("lastnameError", registerValidator.validateStringField(lastname));
+            }
+            if (null != registerValidator.validateStringField(login)) {
+                model.addAttribute("loginError", registerValidator.validateStringField(login));
+            } else if (null != registerValidator.validateUniqueLogin(login)) {
+                model.addAttribute("loginError", registerValidator.validateStringField(login));
+            }
+            if (null != registerValidator.validateStringField(password)) {
+                model.addAttribute("passwordsError", registerValidator.validatePasswords(password, confirmPassword));
+            } else if (null != registerValidator.validatePasswords(password, confirmPassword)) {
+                model.addAttribute("passwordsError", registerValidator.validatePasswords(password, confirmPassword));
+            }
             return "registration";
         }
     }

@@ -11,6 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.edu.utp.mylibrary.enums.ErrorInfo;
+import pl.edu.utp.mylibrary.model.UserInfo;
+import pl.edu.utp.mylibrary.service.AlbumService;
+import pl.edu.utp.mylibrary.service.BookService;
+import pl.edu.utp.mylibrary.service.MovieService;
 import pl.edu.utp.mylibrary.service.UserService;
 
 /**
@@ -23,20 +27,31 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    AlbumService albumService;
+
+    @Autowired
+    BookService bookService;
+
+    @Autowired
+    MovieService movieService;
+
+    public UserInfo user;
 
     @RequestMapping("")
-    public String getLoginForm() {
-        return "login";
-    }
-
-    @RequestMapping("/loginProcess")
     public String login(Model model, @RequestParam("login") String login, @RequestParam("password") String password) {
-        if (null == userService.login(login, password)) {
-            model.addAttribute("loginError", ErrorInfo.LOGIN);
-            return "login";
+        user = userService.login(login, password);
+        if (null == user) {
+            model.addAttribute("loginError", ErrorInfo.LOGIN_PASSWORD.getInfo());
+            model.addAttribute("loginForm", "#loginForm");
+            return "index";
         } else {
             //TODO: To tak nie działa
-//            model.addAttribute("user", userService.login(login, password));
+            model.addAttribute("user", user);
+            model.addAttribute("userAlbums", albumService.findAllFromUser(user));
+            model.addAttribute("userBooks", bookService.findAllFromUser(user));
+            model.addAttribute("userMovies", movieService.findAllFromUser(user));
             return "home";
         }
     }

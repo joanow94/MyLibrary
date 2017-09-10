@@ -72,17 +72,28 @@ public class MovieController {
 
     @RequestMapping("/addNew/add")
     public String addNewMovie(Model model, @RequestParam("title") String title, @RequestParam("director") String director, @RequestParam("year") String year, @RequestParam("country") String country, @RequestParam("genre") String genre) {
-        List<ErrorInfo> errors = itemValidator.validateMovie(title, director, year, country, genre);
-        if (null == errors || errors.isEmpty()) {
+        if (itemValidator.isCorrectMovie(title, director, year, country, genre)) {
             movieService.addMovie(title, director, year, country, genre);
-            //TODO: jak dodać do użytkownika ??
-            //movieService.addToUser(user, Long.parseLong(id));
+            //TODO: dodac do usera
             model.addAttribute("userMovies", movieService.findAllFromUser(user));
             return "movies";
         } else {
-            model.addAttribute("validationMovieErrors", errors);
+            if (null != itemValidator.validateField(title)) {
+                model.addAttribute("titleError", itemValidator.validateField(title));
+            }
+            if (null != itemValidator.validateField(director)) {
+                model.addAttribute("directorError", itemValidator.validateField(director));
+            }
+            if (null != itemValidator.validateField(country)) {
+                model.addAttribute("countryError", itemValidator.validateField(country));
+            }
+            if (null != itemValidator.validateField(year)) {
+                model.addAttribute("yearError", itemValidator.validateField(year));
+            }
+            if (null != itemValidator.validateField(genre)) {
+                model.addAttribute("genreError", itemValidator.validateField(genre));
+            }
             return "addNewMovie";
         }
-
     }
 }
