@@ -5,6 +5,7 @@
  */
 package pl.edu.utp.mylibrary.controller;
 
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,8 @@ import pl.edu.utp.mylibrary.service.UserService;
 @RequestMapping("/registration")
 public class RegisterController {
 
+    private static final Logger LOG = Logger.getLogger(RegisterController.class.getName());
+
     @Autowired
     private UserService userService;
 
@@ -32,13 +35,19 @@ public class RegisterController {
         return "registration";
     }
 
+    //TODO: NIE DZIAŁA walidacja
     @RequestMapping("/registerProcess")
     public String register(Model model, @RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname, @RequestParam("login") String login, @RequestParam("password") String password, @RequestParam("confirmPassword") String confirmPassword) {
+        LOG.info("Przed ifem" + firstname + lastname + login + password + confirmPassword);
         if (registerValidator.isCorrect(firstname, lastname, login, password, confirmPassword)) {
-            userService.addUser(new UserInfo(Long.MIN_VALUE, firstname, lastname, login, password));
+//        if (true) {
+            LOG.info("Przed dodaniem usera" + firstname + lastname + login + password + confirmPassword);
+            userService.save(new UserInfo(Long.MAX_VALUE, firstname, lastname, login, password));
+            LOG.info("Po dodaniu..");
             //TODO: dodawanie do usera
             return "home";
         } else {
+            LOG.info("Wlazło do elsa!");
             if (null != registerValidator.validateStringField(firstname)) {
                 model.addAttribute("firstnameError", registerValidator.validateStringField(firstname));
             }

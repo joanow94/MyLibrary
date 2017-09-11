@@ -10,15 +10,145 @@
     <h:body>
         <ui:composition template="templates/common.xhtml">
             <ui:define name="content">
-                
+                <div id="page-wrapper">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!--TODO: Tutaj ustawiasz tytuł strony-->
+                            <h1 class="page-header">MyLibrary - strona główna</h1>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <!--TODO: Ikona do zmiany-->
+                                            <i class="fa fa-comments fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge"><h:outputText value="#{booksAmount}" /></div>
+                                            <div>Książki</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="/MyLibrary/books">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">Zobacz wszystkie</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="panel panel-green">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <!--TODO: Ikona do zmiany-->
+                                            <i class="fa fa-tasks fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge"><h:outputText value="#{albumsAmount}" /></div>
+                                            <div>Płyty</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="/MyLibrary/albums">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">Zobacz wszystkie</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-12">
+                            <div class="panel panel-yellow">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <!--TODO: Ikona do zmiany-->
+                                            <i class="fa fa-shopping-cart fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge"><h:outputText value="#{moviesAmount}" /></div>
+                                            <div>Filmy</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="/MyLibrary/movies">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">Zobacz wszystkie</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading">
+                                    <!--TODO: ikona do zmiany-->
+                                    <i class="fa fa-bell fa-fw"></i> O aplikacji
+                                </div>
+
+                                <div class="panel-body">
+                                    <div class="list-group">
+
+                                        <!--TODO: Tutaj sobie możesz napisać jakieś informacje-->
+                                        <div class="list-group-item">
+                                            
+                                                <div>Joanna Nowakowska</div>
+                                                <div><span class="text-muted small"><em>Informatyka stosowana</em></span></div>
+                                                <div><span class="text-muted small"><em>Semestr VI</em></span></div>
+                                                <div><span class="text-muted small"><em>Rokademicki 2016/17</em></span></div>
+
+                                            
+                                            <span class="pull-right text-muted small"><em></em>
+                                            </span>
+                                        </div>
+                                        <!--
+                                                                                <div class="list-group-item">
+                                                                                    <i class="fa fa-twitter fa-fw"></i> Informatyka Stosowana
+                                                                                    <span class="pull-right text-muted small"><em></em>
+                                                                                    </span>
+                                                                                </div>
+                                        
+                                                                                <div class="list-group-item">
+                                                                                    <i class="fa fa-twitter fa-fw"></i> Programowanie Aplikacji Intenetowych
+                                                                                    <span class="pull-right text-muted small"><em></em>
+                                                                                    </span>
+                                                                                </div>-->
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
             </ui:define>
         </ui:composition>
     </h:body>
 </html>
-
+<!--
     <body id="page-top">
 
-        <!-- Navigation -->
+         Navigation 
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container">
                 <a class="navbar-brand js-scroll-trigger" href="#page-top">MyLibrary</a>
@@ -40,7 +170,7 @@
                 </div>
             </div>
         </nav>
-        <!--
+        
                 <header class="masthead">
                     <div class="header-content">
                         <div class="header-content-inner">
@@ -51,7 +181,7 @@
                             </hr>
                         </div>
                     </div>
-                </header>-->
+                </header>
 
         <section id="books">
             <div class="container">
@@ -106,4 +236,4 @@
 
     </body>
 
-</html>
+</html>-->

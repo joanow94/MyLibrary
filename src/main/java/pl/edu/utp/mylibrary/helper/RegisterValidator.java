@@ -20,9 +20,26 @@ public class RegisterValidator {
     private UserService userService;
 
     public Boolean isCorrect(String firstname, String lastname, String login, String password, String confirmPassword) {
-        return (null == validateStringField(firstname) && null == validateStringField(lastname)
-                && null == validateStringField(login) && null == validateStringField(password)
-                && null == validateUniqueLogin(login) && null == validatePasswords(password, confirmPassword)) ? true : false;
+        Boolean isOk = true;
+        if (null != validateStringField(firstname)) {
+            isOk = false;
+        }
+        if (null != validateStringField(lastname)) {
+            isOk = false;
+        }
+        if (null != validateStringField(login)) {
+            isOk = false;
+        }
+        if (null != validateStringField(password)) {
+            isOk = false;
+        }
+        if (null != validateUniqueLogin(login)) {
+            isOk = false;
+        }
+        if (null != validatePasswords(password, confirmPassword)) {
+            isOk = false;
+        }
+        return isOk;
     }
 
     public String validateStringField(String stringField) {

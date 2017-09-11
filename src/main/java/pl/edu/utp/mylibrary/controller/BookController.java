@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.edu.utp.mylibrary.enums.ErrorInfo;
 import pl.edu.utp.mylibrary.helper.ItemValidator;
+import pl.edu.utp.mylibrary.model.Book;
 import pl.edu.utp.mylibrary.model.UserInfo;
 import pl.edu.utp.mylibrary.service.BookService;
 
@@ -35,7 +36,7 @@ public class BookController {
 
     @RequestMapping("")
     public String books(Model model) {
-//        model.addAttribute("userBooks", bookService.findAllFromUser(user));
+//        model.addAttribute("books", bookService.findAllFromUser(user));
         model.addAttribute("books", bookService.findAll());
         return "books";
     }
@@ -46,7 +47,7 @@ public class BookController {
         bookService.deleteBook(Long.parseLong(id));
         //TODO: co z tym odświeżaniem
         model.addAttribute("books", bookService.findAll());
-//        model.addAttribute("userBooks", bookService.findAllFromUser(user));
+//        model.addAttribute("books", bookService.findAllFromUser(user));
         return "books";
     }
 
@@ -64,21 +65,22 @@ public class BookController {
 
     @RequestMapping("/search/add/{id}")
     public String addBookToUser(Model model, @PathVariable("id") String id) {
-        bookService.addToUser(user, Long.parseLong(id));
+        bookService.addToUser(user, bookService.findOne(Long.parseLong(id)));
         return "searchBook";
     }
 
     @RequestMapping("/addNew")
     public String getAddNewBookForm() {
-        return "addNewBook";
+        return "addBook";
     }
 
     @RequestMapping("/addNew/add")
     public String addNewBook(Model model, @RequestParam("title") String title, @RequestParam("author") String author, @RequestParam("publisher") String publisher) {
         if (itemValidator.isCorrectBook(title, author, publisher)) {
-            bookService.addBook(title, author, publisher);
-            //TODO: dodac do usera
-            model.addAttribute("userBooks", bookService.findAllFromUser(user));
+            Book book = new Book(null, title, author, publisher);
+            bookService.save(book);
+            bookService.addToUser(user, book);
+            model.addAttribute("books", bookService.findAllFromUser(user));
             return "books";
         } else {
             if (null != itemValidator.validateField(title)) {
@@ -90,7 +92,7 @@ public class BookController {
             if (null != itemValidator.validateField(publisher)) {
                 model.addAttribute("publisherError", itemValidator.validateField(publisher));
             }
-            return "addNewBook";
+            return "addBook";
         }
     }
 

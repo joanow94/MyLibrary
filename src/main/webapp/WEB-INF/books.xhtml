@@ -16,7 +16,8 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <!--TODO: Tytuł-->
-                            <h1 class="page-header">MyLibrary - strona główna</h1>
+                            <h1 class="page-header">Książki</h1>
+                            <div><a class="btn btn-default" href="/MyLibrary/books/addNew"><i class="fa fa-plus" />Dodaj</a></div>
                         </div>
                     </div>
 
@@ -26,7 +27,7 @@
                             <div class="panel panel-default">
 
                                 <div class="panel-heading">
-                                    Książki
+                                   <div><a class="btn btn-default" href="/MyLibrary/books/addNew"><i class="fa fa-plus" /> Dodaj</a></div>
                                 </div>
 
                                 <div class="panel-body">
@@ -49,7 +50,7 @@
                                                         <td><h:outputText value="${book.author}" /></td>
                                                         <td><h:outputText value="${book.publisher}" /></td>
                                                         <td><h:outputText value="${book.mark}" /></td>
-                                                        <td><a class="btn btn-info" href="/MyLibrary/books/delete/${book.id}"><i class="fa fa-trash" /> Usuń</a></td>
+                                                        <td><a class="btn btn-info" href="/MyLibrary/books/delete/${book.id}"><i class="fa fa-trash" /></a></td>
                                                     </tr>
                                                 </ui:repeat>
 

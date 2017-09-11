@@ -46,9 +46,14 @@ public class UserService {
      *
      * @param user
      */
-    public void addUser(UserInfo user) {
-        userRepository.save(user);
+//    public void addUser(UserInfo user) {
+//        userRepository.save(user);
+//    }
+
+    public <S extends UserInfo> S save(S s) {
+        return userRepository.save(s);
     }
+    
 
     /**
      * Login

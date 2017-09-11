@@ -21,4 +21,9 @@ public class MainController {
     public String index(Model model) {
         return "index";
     }
+    
+    @RequestMapping("/home")
+    public String home(Model model) {
+        return "home";
+    }
 }

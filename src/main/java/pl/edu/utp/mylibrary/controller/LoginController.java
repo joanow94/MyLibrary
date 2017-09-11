@@ -27,7 +27,7 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     AlbumService albumService;
 
@@ -41,7 +41,7 @@ public class LoginController {
 
     @RequestMapping("")
     public String login(Model model, @RequestParam("login") String login, @RequestParam("password") String password) {
-        user = userService.login(login, password);
+        this.user = userService.login(login, password);
         if (null == user) {
             model.addAttribute("loginError", ErrorInfo.LOGIN_PASSWORD.getInfo());
             model.addAttribute("loginForm", "#loginForm");

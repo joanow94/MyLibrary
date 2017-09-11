@@ -46,15 +46,19 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public Book findOne(Long id) {
+        return bookRepository.findOne(id);
+    }
+
+    
     /**
      * Add Book
      *
-     * @param title
-     * @param author
-     * @param publisher
+     * @param <S>
+     * @param s
      */
-    public void addBook(String title, String author, String publisher) {
-        bookRepository.save(new Book(Long.MIN_VALUE, title, author, publisher));
+    public <S extends Book> S save(S s) {
+        return bookRepository.save(s);
     }
 
     /**
@@ -82,8 +86,7 @@ public class BookService {
      * @param user
      * @param id
      */
-    public void addToUser(UserInfo user, Long id) {
-        Book book = bookRepository.findOne(id);
+    public void addToUser(UserInfo user, Book book) {
         Set<Book> books = user.getBooks();
         books.add(book);
         user.setBooks(books);
