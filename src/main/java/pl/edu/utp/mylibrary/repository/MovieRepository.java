@@ -20,12 +20,11 @@ import pl.edu.utp.mylibrary.model.Movie;
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     @Query(value = "SELECT m FROM Movie m WHERE "
-            + "LOWER(m.title) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR "
-            + "LOWER(m.director) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR "
-            + "LOWER(m.year) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR "
-            + "LOWER(m.country) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR "
-            + "LOWER(m.genre) LIKE LOWER(CONCAT('%',:searchTerm, '%'))",
-            nativeQuery = true
+            + "LOWER(m.title) LIKE LOWER(CONCAT(:searchTerm, '%')) OR "
+            + "LOWER(m.director) LIKE LOWER(CONCAT(:searchTerm, '%')) OR "
+            + "LOWER(m.year) LIKE LOWER(CONCAT(:searchTerm, '%')) OR "
+            + "LOWER(m.country) LIKE LOWER(CONCAT(:searchTerm, '%')) OR "
+            + "LOWER(m.genre) LIKE LOWER(CONCAT(:searchTerm, '%'))"
     )
     List<Movie> findBySearchTerm(@Param("searchTerm") String searchTerm);
 }

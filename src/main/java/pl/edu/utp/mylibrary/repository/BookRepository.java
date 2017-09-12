@@ -20,10 +20,9 @@ import pl.edu.utp.mylibrary.model.Book;
 public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query(value = "SELECT b FROM Book b WHERE "
-            + "LOWER(b.title) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR "
-            + "LOWER(b.author) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR "
-            + "LOWER(b.publisher) LIKE LOWER(CONCAT('%',:searchTerm, '%'))",
-            nativeQuery = true
+            + "LOWER(b.title) LIKE LOWER(CONCAT(:searchTerm, '%')) OR "
+            + "LOWER(b.author) LIKE LOWER(CONCAT(:searchTerm, '%')) OR "
+            + "LOWER(b.publisher) LIKE LOWER(CONCAT(:searchTerm, '%'))"
     )
     List<Book> findBySearchTerm(@Param("searchTerm") String searchTerm);
 }

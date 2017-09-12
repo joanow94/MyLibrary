@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <!--TODO: Tytuł-->
-                            <h1 class="page-header">Filmy</h1>
+                            <h1 class="page-header">Dostępne filmy</h1>
                         </div>
                     </div>
 
@@ -24,9 +24,20 @@
                         <div class="col-lg-12">
 
                             <div class="panel panel-default">
-
+                                <div class="sidebar-search">
+                                    <form role="form" action="/MyLibrary/movies/search/results">
+                                        <div class="input-group custom-search-form">
+                                            <input type="text" class="form-control" placeholder="Wyszukaj film..." name="searchTerm" />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="submit">
+                                                    <i class="fa fa-search"></i>  <!--/search/results -->
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
                                 <div class="panel-heading">
-                                    <div><a class="btn btn-default" href="/MyLibrary/movies/addNew"><i class="fa fa-plus" /> Dodaj</a></div>
+
                                 </div>
 
                                 <div class="panel-body">
@@ -40,12 +51,12 @@
                                                     <th>Kraj</th>
                                                     <th>Gatunek</th>
                                                     <th>Ocena</th>
-                                                    <th>Usuń</th>
+                                                    <th>Dodaj</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
 
-                                                <ui:repeat value="#{movies}" var="movie">
+                                                <ui:repeat value="#{allMovies}" var="movie">
                                                     <tr>
                                                         <td><h:outputText value="#{movie.title}" /></td>
                                                         <td><h:outputText value="${movie.director}" /></td>
@@ -53,7 +64,7 @@
                                                         <td><h:outputText value="${movie.country}" /></td>
                                                         <td><h:outputText value="${movie.genre}" /></td>
                                                         <td><h:outputText value="${movie.mark}" /></td>
-                                                        <td><a class="btn btn-info" href="/MyLibrary/movies/delete/${movie.id}"><i class="fa fa-trash" /></a></td>
+                                                        <td><a class="btn btn-info" href="/MyLibrary/movies/search/add/${movie.id}"><i class="fa fa-plus" /></a></td>
                                                     </tr>
                                                 </ui:repeat>
 

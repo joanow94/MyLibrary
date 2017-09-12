@@ -35,7 +35,9 @@ public class MovieController {
 
     @RequestMapping("")
     public String movies(Model model) {
-        model.addAttribute("userMovies", movieService.findAllFromUser(user));
+        if (null != user) {
+            model.addAttribute("movies", movieService.findAllFromUser(user));
+        }
         return "movies";
     }
 
@@ -43,7 +45,7 @@ public class MovieController {
     public String deleteMovie(Model model, @PathVariable("id") String id) {
         movieService.deleteFromUser(user, Long.parseLong(id));
         //TODO: co z tym odświeżaniem
-        model.addAttribute("userMovies", movieService.findAllFromUser(user));
+        model.addAttribute("movies", movieService.findAllFromUser(user));
         return "movies";
     }
 
@@ -67,7 +69,7 @@ public class MovieController {
 
     @RequestMapping("/addNew")
     public String getAddNewMovieForm() {
-        return "addNewMovie";
+        return "addMovie";
     }
 
     @RequestMapping("/addNew/add")
@@ -93,7 +95,7 @@ public class MovieController {
             if (null != itemValidator.validateField(genre)) {
                 model.addAttribute("genreError", itemValidator.validateField(genre));
             }
-            return "addNewMovie";
+            return "addMovie";
         }
     }
 }

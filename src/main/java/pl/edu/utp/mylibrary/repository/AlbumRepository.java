@@ -26,11 +26,10 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
      * @return
      */
     @Query(value = "SELECT a FROM Album a WHERE "
-            + "LOWER(a.title) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR "
-            + "LOWER(a.artist) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR "
-            + "LOWER(a.year) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR "
-            + "LOWER(a.genre) LIKE LOWER(CONCAT('%',:searchTerm, '%'))",
-            nativeQuery = true
+            + "LOWER(a.title) LIKE LOWER(CONCAT(:searchTerm, '%')) OR "
+            + "LOWER(a.artist) LIKE LOWER(CONCAT(:searchTerm, '%')) OR "
+            + "LOWER(a.year) LIKE LOWER(CONCAT(:searchTerm, '%')) OR "
+            + "LOWER(a.genre) LIKE LOWER(CONCAT(:searchTerm, '%'))"
     )
     List<Album> findBySearchTerm(@Param("searchTerm") String searchTerm);
 

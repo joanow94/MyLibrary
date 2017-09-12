@@ -36,18 +36,20 @@ public class BookController {
 
     @RequestMapping("")
     public String books(Model model) {
-//        model.addAttribute("books", bookService.findAllFromUser(user));
-        model.addAttribute("books", bookService.findAll());
+        if (null != user) {
+            model.addAttribute("books", bookService.findAllFromUser(user));
+        }
+//        model.addAttribute("books", bookService.findAll());
         return "books";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteBook(Model model, @PathVariable("id") String id) {
-//        bookService.deleteFromUser(user, Long.parseLong(id));
-        bookService.deleteBook(Long.parseLong(id));
+        bookService.deleteFromUser(user, Long.parseLong(id));
+//        bookService.deleteBook(Long.parseLong(id));
         //TODO: co z tym odświeżaniem
-        model.addAttribute("books", bookService.findAll());
-//        model.addAttribute("books", bookService.findAllFromUser(user));
+//        model.addAttribute("books", bookService.findAll());
+        model.addAttribute("books", bookService.findAllFromUser(user));
         return "books";
     }
 
@@ -59,7 +61,11 @@ public class BookController {
 
     @RequestMapping("/search/results")
     public String findBySearchTerm(Model model, @RequestParam("searchTerm") String searchTerm) {
-        model.addAttribute("resultBooks", bookService.findBySearchTerm(searchTerm));
+        if (searchTerm.isEmpty() || searchTerm == null) {
+            model.addAttribute("allBooks", bookService.findAll());
+        } else {
+            model.addAttribute("allBooks", bookService.findBySearchTerm(searchTerm));
+        }
         return "searchBook";
     }
 

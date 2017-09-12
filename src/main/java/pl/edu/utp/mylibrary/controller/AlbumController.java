@@ -35,7 +35,9 @@ public class AlbumController {
 
     @RequestMapping("")
     public String albums(Model model) {
-        model.addAttribute("userAlbums", albumService.findAllFromUser(user));
+        if (null != user) {
+            model.addAttribute("albums", albumService.findAllFromUser(user));
+        }
         return "albums";
     }
 
@@ -43,7 +45,7 @@ public class AlbumController {
     public String deleteAlbum(Model model, @PathVariable("id") String id) {
         albumService.deleteFromUser(user, Long.parseLong(id));
         //TODO: co z tym odświeżaniem
-        model.addAttribute("userAlbums", albumService.findAllFromUser(user));
+        model.addAttribute("albums", albumService.findAllFromUser(user));
         return "albums";
     }
 
@@ -67,7 +69,7 @@ public class AlbumController {
 
     @RequestMapping("/addNew")
     public String getAddNewAlbumForm() {
-        return "addNewAlbum";
+        return "addAlbum";
     }
 
     @RequestMapping("/addNew/add")
@@ -90,7 +92,7 @@ public class AlbumController {
             if (null != itemValidator.validateField(genre)) {
                 model.addAttribute("genreError", itemValidator.validateField(genre));
             }
-            return "addNewAlbum";
+            return "addAlbum";
         }
 
     }
