@@ -16,10 +16,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import pl.edu.utp.mylibrary.model.Album;
 import pl.edu.utp.mylibrary.model.Book;
+import pl.edu.utp.mylibrary.model.Movie;
 import pl.edu.utp.mylibrary.reports.PdfForReport1View;
+import pl.edu.utp.mylibrary.reports.PdfForReport2View;
+import pl.edu.utp.mylibrary.reports.PdfForReport3View;
+import pl.edu.utp.mylibrary.service.AlbumService;
 //import pl.edu.utp.mylibrary.reports.PopularityOfBooksReport;
 import pl.edu.utp.mylibrary.service.BookService;
+import pl.edu.utp.mylibrary.service.MovieService;
 
 /**
  *
@@ -31,6 +37,12 @@ public class ReportController {
 
     @Autowired
     BookService bookService;
+    
+    @Autowired
+    AlbumService albumService;
+    
+    @Autowired
+    MovieService movieService;
 
     @RequestMapping("")
     public String ranking() {
@@ -47,32 +59,28 @@ public class ReportController {
 
         return new ModelAndView(new PdfForReport1View(), model);
     }
+    
+    @RequestMapping(path = "/report2", method = RequestMethod.GET)
+    public ModelAndView report2() {
+        Map<String, Object> model = new HashMap<>();
 
-    /**
-     * Raport I - Najpopularnijsze książki
-     *
-     * @param model
-     * @return
-     * @throws java.io.IOException
-     * @throws com.itextpdf.text.DocumentException
-     */
-//    @RequestMapping("/generateReport1")
-//    public String getReportI(Model model) throws IOException, DocumentException {
-////        File file = new File(DEST);
-////        file.getParentFile().mkdirs();
-////        new PopularityOfBooksReport().createPdf(DEST);
-////
-//        return "ranking";
-//    }
+        List<Album> albums = albumService.getSortByPopularity();
 
-    /**
-     * Raport II - Książki - Top 10
-     *
-     * @return
-     */
-    @RequestMapping("/generateReport2")
-    public String getReportII() {
-        return "ranking";
+        model.put("albums", albums);
+
+        return new ModelAndView(new PdfForReport2View(), model);
     }
+    
+    @RequestMapping(path = "/report3", method = RequestMethod.GET)
+    public ModelAndView report3() {
+        Map<String, Object> model = new HashMap<>();
+
+        List<Movie> movies = movieService.getSortByPopularity();
+
+        model.put("movies", movies);
+
+        return new ModelAndView(new PdfForReport3View(), model);
+    }
+
 
 }
