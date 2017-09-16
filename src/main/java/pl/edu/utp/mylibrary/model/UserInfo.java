@@ -42,7 +42,7 @@ public class UserInfo implements Serializable {
     private String password;
 
     @Column(nullable = true)
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USERINFO_BOOK",
             joinColumns = {
                 @JoinColumn(name = "USERINFO_ID")},
@@ -51,7 +51,7 @@ public class UserInfo implements Serializable {
     private Set<Book> books = new HashSet<>();
 
     @Column(nullable = true)
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USERINFO_ALBUM",
             joinColumns = {
                 @JoinColumn(name = "USERINFO_ID")},
@@ -60,7 +60,7 @@ public class UserInfo implements Serializable {
     private Set<Album> albums = new HashSet<>();
 
     @Column(nullable = true)
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USERINFO_MOVIE",
             joinColumns = {
                 @JoinColumn(name = "USERINFO_ID")},

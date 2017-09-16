@@ -47,6 +47,23 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.framework.version}</version>
         </dependency>
+        
+<!--         https://mvnrepository.com/artifact/org.springframework/spring-test 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>2.5</version>
+            <scope>test</scope>
+        </dependency>-->
+        
+         <!--https://mvnrepository.com/artifact/org.springframework/spring-test--> 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>3.0.3.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+
 
         <!--Spring Data Jpa-->
         <dependency>
@@ -55,6 +72,13 @@
             <version>${spring.data.jpa.version}</version>
         </dependency>
         
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
         <!--Hibernate-->
         <dependency>
             <groupId>org.hibernate</groupId>

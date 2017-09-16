@@ -59,12 +59,12 @@
                                                 <ui:repeat value="#{allMovies}" var="movie">
                                                     <tr>
                                                         <td><h:outputText value="#{movie.title}" /></td>
-                                                        <td><h:outputText value="${movie.director}" /></td>
-                                                        <td><h:outputText value="${movie.year}" /></td>
-                                                        <td><h:outputText value="${movie.country}" /></td>
-                                                        <td><h:outputText value="${movie.genre}" /></td>
-                                                        <td><h:outputText value="${movie.mark}" /></td>
-                                                        <td><a class="btn btn-info" href="/MyLibrary/movies/search/add/${movie.id}"><i class="fa fa-plus" /></a></td>
+                                                        <td><h:outputText value="#{movie.director}" /></td>
+                                                        <td><h:outputText value="#{movie.year}" /></td>
+                                                        <td><h:outputText value="#{movie.country}" /></td>
+                                                        <td><h:outputText value="#{movie.genre}" /></td>
+                                                        <td><h:outputText value="#{movie.mark}" /></td>
+                                                        <td><a class="btn btn-info" href="/MyLibrary/movies/search/add/#{movie.id}"><i class="fa fa-plus" /></a></td>
                                                     </tr>
                                                 </ui:repeat>
 

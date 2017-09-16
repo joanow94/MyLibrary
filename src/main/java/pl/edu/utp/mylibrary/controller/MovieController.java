@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.edu.utp.mylibrary.enums.ErrorInfo;
 import pl.edu.utp.mylibrary.helper.ItemValidator;
+import pl.edu.utp.mylibrary.model.Movie;
 import pl.edu.utp.mylibrary.model.UserInfo;
 import pl.edu.utp.mylibrary.service.MovieService;
 
@@ -35,17 +36,17 @@ public class MovieController {
 
     @RequestMapping("")
     public String movies(Model model) {
-        if (null != user) {
-            model.addAttribute("movies", movieService.findAllFromUser(user));
-        }
+
+        model.addAttribute("movies", movieService.findAllFromUser());
+
         return "movies";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteMovie(Model model, @PathVariable("id") String id) {
-        movieService.deleteFromUser(user, Long.parseLong(id));
+        movieService.deleteFromUser(Long.parseLong(id));
         //TODO: co z tym odświeżaniem
-        model.addAttribute("movies", movieService.findAllFromUser(user));
+        model.addAttribute("movies", movieService.findAllFromUser());
         return "movies";
     }
 
@@ -57,13 +58,17 @@ public class MovieController {
 
     @RequestMapping("/search/results")
     public String findBySearchTerm(Model model, @RequestParam("searchTerm") String searchTerm) {
-        model.addAttribute("resultMovies", movieService.findBySearchTerm(searchTerm));
+        if (searchTerm.isEmpty() || searchTerm == null) {
+            model.addAttribute("allMovies", movieService.findAll());
+        } else {
+            model.addAttribute("allMovies", movieService.findBySearchTerm(searchTerm));
+        }
         return "searchMovie";
     }
 
     @RequestMapping("/search/add/{id}")
     public String addMovieToUser(Model model, @PathVariable("id") String id) {
-        movieService.addToUser(user, Long.parseLong(id));
+        movieService.addToUser(Long.parseLong(id));
         return "searchMovie";
     }
 
@@ -74,28 +79,30 @@ public class MovieController {
 
     @RequestMapping("/addNew/add")
     public String addNewMovie(Model model, @RequestParam("title") String title, @RequestParam("director") String director, @RequestParam("year") String year, @RequestParam("country") String country, @RequestParam("genre") String genre) {
-        if (itemValidator.isCorrectMovie(title, director, year, country, genre)) {
-            movieService.addMovie(title, director, year, country, genre);
-            //TODO: dodac do usera
-            model.addAttribute("userMovies", movieService.findAllFromUser(user));
-            return "movies";
-        } else {
-            if (null != itemValidator.validateField(title)) {
-                model.addAttribute("titleError", itemValidator.validateField(title));
-            }
-            if (null != itemValidator.validateField(director)) {
-                model.addAttribute("directorError", itemValidator.validateField(director));
-            }
-            if (null != itemValidator.validateField(country)) {
-                model.addAttribute("countryError", itemValidator.validateField(country));
-            }
-            if (null != itemValidator.validateField(year)) {
-                model.addAttribute("yearError", itemValidator.validateField(year));
-            }
-            if (null != itemValidator.validateField(genre)) {
-                model.addAttribute("genreError", itemValidator.validateField(genre));
-            }
-            return "addMovie";
-        }
+//        if (itemValidator.isCorrectMovie(title, director, year, country, genre)) {
+        Movie movie = new Movie(null, title, director, year, country, genre);
+        movieService.addMovie(movie);
+        movieService.addToUser(movie);
+        //TODO: dodac do usera
+        model.addAttribute("movies", movieService.findAllFromUser());
+        return "movies";
+//        } else {
+//            if (null != itemValidator.validateField(title)) {
+//                model.addAttribute("titleError", itemValidator.validateField(title));
+//            }
+//            if (null != itemValidator.validateField(director)) {
+//                model.addAttribute("directorError", itemValidator.validateField(director));
+//            }
+//            if (null != itemValidator.validateField(country)) {
+//                model.addAttribute("countryError", itemValidator.validateField(country));
+//            }
+//            if (null != itemValidator.validateField(year)) {
+//                model.addAttribute("yearError", itemValidator.validateField(year));
+//            }
+//            if (null != itemValidator.validateField(genre)) {
+//                model.addAttribute("genreError", itemValidator.validateField(genre));
+//            }
+//            return "addMovie";
+//        }
     }
 }

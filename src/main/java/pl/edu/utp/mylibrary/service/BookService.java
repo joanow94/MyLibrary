@@ -50,7 +50,6 @@ public class BookService {
         return bookRepository.findOne(id);
     }
 
-    
     /**
      * Add Book
      *
@@ -86,10 +85,19 @@ public class BookService {
      * @param user
      * @param id
      */
-    public void addToUser(UserInfo user, Book book) {
-        Set<Book> books = user.getBooks();
+    public void addToUser(Book book) {
+        UserInfo admin = userRepository.findByFirstname("adminI");
+        Set<Book> books = admin.getBooks();
         books.add(book);
-        user.setBooks(books);
+        admin.setBooks(books);
+    }
+
+    public void addToUser(Long idBook) {
+        UserInfo admin = userRepository.findByFirstname("adminI");
+        Book book = bookRepository.findOne(idBook);
+        Set<Book> books = admin.getBooks();
+        books.add(book);
+        admin.setBooks(books);
     }
 
     /**
@@ -98,15 +106,16 @@ public class BookService {
      * @param user
      * @param id
      */
-    public void deleteFromUser(UserInfo user, Long id) {
-        Set<Book> books = user.getBooks();
+    public void deleteFromUser(Long id) {
+        UserInfo admin = userRepository.findByFirstname("adminI");
+        Set<Book> books = admin.getBooks();
         Set<Book> booksNew = new HashSet<>();
         for (Book b : books) {
             if (!b.getId().equals(id)) {
                 booksNew.add(b);
             }
         }
-        user.setBooks(booksNew);
+        admin.setBooks(booksNew);
     }
 
     /**
@@ -115,18 +124,8 @@ public class BookService {
      * @param user
      * @return
      */
-    public Set<Book> findAllFromUser(UserInfo user) {
-        return user.getBooks();
-    }
-
-    /**
-     * TODO: get10TopBooks
-     *
-     * @return
-     */
-    public List<Book> get10TopBooks() {
-
-        return null;
+    public Set<Book> findAllFromUser() {
+        return userRepository.findByFirstname("adminI").getBooks();
     }
 
     /**

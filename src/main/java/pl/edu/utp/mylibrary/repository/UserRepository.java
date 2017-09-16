@@ -17,4 +17,5 @@ import pl.edu.utp.mylibrary.model.UserInfo;
 @Repository
 public interface UserRepository extends JpaRepository<UserInfo, Long> {
 
+    public UserInfo findByFirstname(String firstname);
 }

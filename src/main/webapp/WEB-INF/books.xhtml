@@ -43,13 +43,13 @@
                                             </thead>
                                             <tbody>
 
-                                                <ui:repeat value="#{books}" var="book">
+                                                <ui:repeat value="#{books.toArray()}" var="book">
                                                     <tr>
                                                         <td><h:outputText value="#{book.title}" /></td>
-                                                        <td><h:outputText value="${book.author}" /></td>
-                                                        <td><h:outputText value="${book.publisher}" /></td>
-                                                        <td><h:outputText value="${book.mark}" /></td>
-                                                        <td><a class="btn btn-info" href="/MyLibrary/books/delete/${book.id}"><i class="fa fa-trash" /></a></td>
+                                                        <td><h:outputText value="#{book.author}" /></td>
+                                                        <td><h:outputText value="#{book.publisher}" /></td>
+                                                        <td><h:outputText value="#{book.mark}" /></td>
+                                                        <td><a class="btn btn-info" href="/MyLibrary/books/delete/#{book.id}"><i class="fa fa-trash" /></a></td>
                                                     </tr>
                                                 </ui:repeat>
 

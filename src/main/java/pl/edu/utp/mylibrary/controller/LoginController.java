@@ -49,9 +49,9 @@ public class LoginController {
         } else {
             //TODO: To tak nie działa
             model.addAttribute("user", user);
-            model.addAttribute("userAlbums", albumService.findAllFromUser(user));
-            model.addAttribute("userBooks", bookService.findAllFromUser(user));
-            model.addAttribute("userMovies", movieService.findAllFromUser(user));
+            model.addAttribute("userAlbums", albumService.findAllFromUser());
+            model.addAttribute("userBooks", bookService.findAllFromUser());
+            model.addAttribute("userMovies", movieService.findAllFromUser()); 
             return "home";
         }
     }

@@ -23,6 +23,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public UserInfo findByFirstname(String firstname) {
+        return userRepository.findByFirstname(firstname);
+    }
+    
     /**
      * FindAll Persons
      *

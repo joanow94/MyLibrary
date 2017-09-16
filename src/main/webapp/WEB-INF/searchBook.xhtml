@@ -57,10 +57,10 @@
                                                 <ui:repeat value="#{allBooks}" var="book">
                                                     <tr>
                                                         <td><h:outputText value="#{book.title}" /></td>
-                                                        <td><h:outputText value="${book.author}" /></td>
-                                                        <td><h:outputText value="${book.publisher}" /></td>
-                                                        <td><h:outputText value="${book.mark}" /></td>
-                                                        <td><a class="btn btn-info" href="/MyLibrary/books/search/add/${book.id}"><i class="fa fa-plus" /></a></td>
+                                                        <td><h:outputText value="#{book.author}" /></td>
+                                                        <td><h:outputText value="#{book.publisher}" /></td>
+                                                        <td><h:outputText value="#{book.mark}" /></td>
+                                                        <td><a class="btn btn-info" href="/MyLibrary/books/search/add/#{book.id}"><i class="fa fa-plus" /></a></td>
                                                     </tr>
                                                 </ui:repeat>
 

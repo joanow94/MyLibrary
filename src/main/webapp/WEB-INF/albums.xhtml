@@ -43,15 +43,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-
-                                                <ui:repeat value="#{albums}" var="album">
+                                                <ui:repeat value="#{albums.toArray()}" var="album">
                                                     <tr>
                                                         <td><h:outputText value="#{album.title}" /></td>
-                                                        <td><h:outputText value="${album.artist}" /></td>
-                                                        <td><h:outputText value="${album.year}" /></td>
-                                                        <td><h:outputText value="${album.genre}" /></td>
-                                                        <td><h:outputText value="${album.mark}" /></td>
-                                                        <td><a class="btn btn-info" href="/MyLibrary/albums/delete/${album.id}"><i class="fa fa-trash" /></a></td>
+                                                        <td><h:outputText value="#{album.artist}" /></td>
+                                                        <td><h:outputText value="#{album.year}" /></td>
+                                                        <td><h:outputText value="#{album.genre}" /></td>
+                                                        <td><h:outputText value="#{album.mark}" /></td>
+                                                        <td><a class="btn btn-info" href="/MyLibrary/albums/delete/#{album.id}"><i class="fa fa-trash" /></a></td>
                                                     </tr>
                                                 </ui:repeat>
 

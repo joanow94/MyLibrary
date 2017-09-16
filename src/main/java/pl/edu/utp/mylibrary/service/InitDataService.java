@@ -65,6 +65,7 @@ public class InitDataService {
         UserInfo admin = new UserInfo(Long.MIN_VALUE, "adminI", "adminN", "admin", "x");
         admin.setBooks(randomBooks());
         admin.setAlbums(randomAlbums());
+        LOGGER.info("Albumy admina: " + admin.getAlbums().toString());
         admin.setMovies(randomMovies());
         users.add(admin);
         userRepository.save(users);

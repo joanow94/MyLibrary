@@ -58,11 +58,11 @@
                                                 <ui:repeat value="#{allAlbums}" var="album">
                                                     <tr>
                                                         <td><h:outputText value="#{album.title}" /></td>
-                                                        <td><h:outputText value="${album.artist}" /></td>
-                                                        <td><h:outputText value="${album.year}" /></td>
-                                                        <td><h:outputText value="${album.genre}" /></td>
-                                                        <td><h:outputText value="${album.mark}" /></td>
-                                                        <td><a class="btn btn-info" href="/MyLibrary/albums/search/add/${album.id}"><i class="fa fa-plus" /></a></td>
+                                                        <td><h:outputText value="#{album.artist}" /></td>
+                                                        <td><h:outputText value="#{album.year}" /></td>
+                                                        <td><h:outputText value="#{album.genre}" /></td>
+                                                        <td><h:outputText value="#{album.mark}" /></td>
+                                                        <td><a class="btn btn-info" href="/MyLibrary/albums/search/add/#{album.id}"><i class="fa fa-plus" /></a></td>
                                                     </tr>
                                                 </ui:repeat>
 

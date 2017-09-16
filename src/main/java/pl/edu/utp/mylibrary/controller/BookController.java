@@ -36,20 +36,20 @@ public class BookController {
 
     @RequestMapping("")
     public String books(Model model) {
-        if (null != user) {
-            model.addAttribute("books", bookService.findAllFromUser(user));
-        }
+
+        model.addAttribute("books", bookService.findAllFromUser());
+
 //        model.addAttribute("books", bookService.findAll());
         return "books";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteBook(Model model, @PathVariable("id") String id) {
-        bookService.deleteFromUser(user, Long.parseLong(id));
+        bookService.deleteFromUser(Long.parseLong(id));
 //        bookService.deleteBook(Long.parseLong(id));
         //TODO: co z tym odświeżaniem
 //        model.addAttribute("books", bookService.findAll());
-        model.addAttribute("books", bookService.findAllFromUser(user));
+        model.addAttribute("books", bookService.findAllFromUser());
         return "books";
     }
 
@@ -71,7 +71,8 @@ public class BookController {
 
     @RequestMapping("/search/add/{id}")
     public String addBookToUser(Model model, @PathVariable("id") String id) {
-        bookService.addToUser(user, bookService.findOne(Long.parseLong(id)));
+        bookService.addToUser(bookService.findOne(Long.parseLong(id)));
+        model.addAttribute("allBooks", bookService.findAll());
         return "searchBook";
     }
 
@@ -82,24 +83,24 @@ public class BookController {
 
     @RequestMapping("/addNew/add")
     public String addNewBook(Model model, @RequestParam("title") String title, @RequestParam("author") String author, @RequestParam("publisher") String publisher) {
-        if (itemValidator.isCorrectBook(title, author, publisher)) {
-            Book book = new Book(null, title, author, publisher);
-            bookService.save(book);
-            bookService.addToUser(user, book);
-            model.addAttribute("books", bookService.findAllFromUser(user));
-            return "books";
-        } else {
-            if (null != itemValidator.validateField(title)) {
-                model.addAttribute("titleError", itemValidator.validateField(title));
-            }
-            if (null != itemValidator.validateField(author)) {
-                model.addAttribute("authorError", itemValidator.validateField(author));
-            }
-            if (null != itemValidator.validateField(publisher)) {
-                model.addAttribute("publisherError", itemValidator.validateField(publisher));
-            }
-            return "addBook";
-        }
+//        if (itemValidator.isCorrectBook(title, author, publisher)) {
+        Book book = new Book(null, title, author, publisher);
+        bookService.save(book);
+        bookService.addToUser(book);
+        model.addAttribute("books", bookService.findAllFromUser());
+        return "books";
+//        } else {
+//            if (null != itemValidator.validateField(title)) {
+//                model.addAttribute("titleError", itemValidator.validateField(title));
+//            }
+//            if (null != itemValidator.validateField(author)) {
+//                model.addAttribute("authorError", itemValidator.validateField(author));
+//            }
+//            if (null != itemValidator.validateField(publisher)) {
+//                model.addAttribute("publisherError", itemValidator.validateField(publisher));
+//            }
+//            return "addBook";
+//        }
     }
 
 }
