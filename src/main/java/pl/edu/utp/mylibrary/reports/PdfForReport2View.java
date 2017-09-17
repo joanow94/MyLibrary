@@ -125,12 +125,7 @@ public class PdfForReport2View extends AbstractPdfView {
             i++;
         }
         Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, "Cp1250", BaseFont.EMBEDDED, 25);
-        Paragraph paragraph = new Paragraph("Najpopularniejsze płyty", headerFont);
-        document.add(paragraph);
-        DottedLineSeparator separator = new DottedLineSeparator();
-        separator.setPercentage(59500f / 523f);
-        Chunk linebreak = new Chunk(separator);
-        document.add(linebreak);
+        
         document.addCreationDate();
         document.add(table);
 

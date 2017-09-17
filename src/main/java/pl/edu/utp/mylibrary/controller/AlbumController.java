@@ -36,15 +36,15 @@ public class AlbumController {
 
     @RequestMapping("")
     public String albums(Model model) {
-       
+
         model.addAttribute("albums", albumService.findAllFromUser());
-        
+
         return "albums";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteAlbum(Model model, @PathVariable("id") String id) {
-        albumService.deleteFromUser( Long.parseLong(id));
+        albumService.deleteFromUser(Long.parseLong(id));
         //TODO: co z tym odświeżaniem
         model.addAttribute("albums", albumService.findAllFromUser());
         return "albums";
@@ -68,7 +68,7 @@ public class AlbumController {
 
     @RequestMapping("/search/add/{id}")
     public String addAlbumToUser(Model model, @PathVariable("id") String id) {
-        albumService.addToUser( Long.parseLong(id));
+        albumService.addToUser(Long.parseLong(id));
         model.addAttribute("allAlbums", albumService.findAll());
         return "searchAlbum";
     }
@@ -80,30 +80,32 @@ public class AlbumController {
 
     @RequestMapping("/addNew/add")
     public String addNewAlbum(Model model, @RequestParam("title") String title, @RequestParam("artist") String artist, @RequestParam("year") String year, @RequestParam("genre") String genre) {
-//        if (itemValidator.isCorrectAlbum(title, artist, year, genre)) {
-            Album album = new Album(null, title, artist, year, genre);
-            albumService.addAlbum(album);
-            albumService.addToUser(album);
-            
-            //TODO: dodac do usera
-            model.addAttribute("albums", albumService.findAllFromUser());
-            return "albums";
-//        } else {
-//            if (null != itemValidator.validateField(title)) {
-//                model.addAttribute("titleError", itemValidator.validateField(title));
-//            }
-//            if (null != itemValidator.validateField(artist)) {
-//                model.addAttribute("artistError", itemValidator.validateField(artist));
-//            }
-//            if (null != itemValidator.validateField(year)) {
-//                model.addAttribute("yearError", itemValidator.validateField(year));
-//            }
-//            if (null != itemValidator.validateField(genre)) {
-//                model.addAttribute("genreError", itemValidator.validateField(genre));
-//            }
+        Boolean isError = false;
+
+//        if (null != itemValidator.validateField(title)) {
+//            model.addAttribute("titleError", itemValidator.validateField(title));
+//            isError = true;
+//        }
+//        if (null != itemValidator.validateField(artist)) {
+//            model.addAttribute("artistError", itemValidator.validateField(artist));
+//            isError = true;
+//        }
+//        if (null != itemValidator.validateField(year)) {
+//            model.addAttribute("yearError", itemValidator.validateField(year));
+//            isError = true;
+//        }
+//        if (null != itemValidator.validateField(genre)) {
+//            model.addAttribute("genreError", itemValidator.validateField(genre));
+//            isError = true;
+//        }
+//        if (isError) {
 //            return "addAlbum";
 //        }
+        Album album = new Album(null, title, artist, year, genre);
+        albumService.addAlbum(album);
+        albumService.addToUser(album);
 
+        model.addAttribute("albums", albumService.findAllFromUser());
+        return "albums";
     }
-
 }

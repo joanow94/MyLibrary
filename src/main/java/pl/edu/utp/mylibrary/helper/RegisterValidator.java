@@ -6,6 +6,7 @@
 package pl.edu.utp.mylibrary.helper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.edu.utp.mylibrary.enums.ErrorInfo;
 import pl.edu.utp.mylibrary.model.UserInfo;
 import pl.edu.utp.mylibrary.service.UserService;
@@ -14,33 +15,11 @@ import pl.edu.utp.mylibrary.service.UserService;
  *
  * @author nowakowska joanna
  */
+@Service
 public class RegisterValidator {
 
     @Autowired
     private UserService userService;
-
-    public Boolean isCorrect(String firstname, String lastname, String login, String password, String confirmPassword) {
-        Boolean isOk = true;
-        if (null != validateStringField(firstname)) {
-            isOk = false;
-        }
-        if (null != validateStringField(lastname)) {
-            isOk = false;
-        }
-        if (null != validateStringField(login)) {
-            isOk = false;
-        }
-        if (null != validateStringField(password)) {
-            isOk = false;
-        }
-        if (null != validateUniqueLogin(login)) {
-            isOk = false;
-        }
-        if (null != validatePasswords(password, confirmPassword)) {
-            isOk = false;
-        }
-        return isOk;
-    }
 
     public String validateStringField(String stringField) {
         if (null == stringField || stringField.length() < 1) {

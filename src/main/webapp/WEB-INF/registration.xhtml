@@ -78,7 +78,8 @@
             <ui:define name="content">
                 <div id="page-wrapper">
                     <div class="row">
-                        <div class="col-lg-4 text-center">
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-4 ">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     Rejestracja
@@ -88,28 +89,28 @@
                                         <div class="col-lg-12 text-center">
                                             <form role="form" action="/MyLibrary/registration/registerProcess" method="POST">
                                                 <div class="form-group">
-                                                    <input class="form-control" placeholder="Imię" name="firstname"/>
+                                                    <input class="form-control" value="" placeholder="Imię" name="firstname"/>
                                                 </div>
                                                 <div class="form-group">
                                                     <h:outputText value="${firstnameError}" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <input class="form-control" placeholder="Nazwisko" name="lastname"/>
+                                                    <input class="form-control" value="" placeholder="Nazwisko" name="lastname"/>
                                                 </div>
                                                 <div class="form-group">
                                                     <h:outputText value="${lastnameError}" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <input class="form-control" placeholder="Login" name="login"/>
+                                                    <input class="form-control" value="" placeholder="Login" name="login"/>
                                                 </div>
                                                 <div class="form-group">
                                                     <h:outputText value="${loginError}" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <input class="form-control" placeholder="Hasło" type="password" name="password"/>
+                                                    <input class="form-control" value="" placeholder="Hasło" type="password" name="password"/>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input class="form-control" placeholder="Potwierdź hasło" type="password" name="confirmPassword"/>
+                                                    <input class="form-control" value="" placeholder="Potwierdź hasło" type="password" name="confirmPassword"/>
                                                 </div>
                                                 <div class="form-group">
                                                     <h:outputText value="${passwordsError}" />
