@@ -27,60 +27,60 @@ public class SortByPopularityTest {
     public static List<Book> allBooks = new ArrayList<>();
     public static List<UserInfo> allUsers = new ArrayList<>();
 
-    public static void main(String[] args) {
-
-        Book book1 = new Book(Long.MIN_VALUE, "tytul1", "autor1", "publi1");
-        Book book2 = new Book(Long.MIN_VALUE, "tytul2", "autor1", "publi1");
-        Book book3 = new Book(Long.MIN_VALUE, "tytul3", "autor1", "publi1");
-        Book book4 = new Book(Long.MIN_VALUE, "tytul4", "autor1", "publi1");
-
-        allBooks.add(book1);
-        allBooks.add(book2);
-        allBooks.add(book3);
-        allBooks.add(book4);
-
-        UserInfo user1 = new UserInfo(Long.MIN_VALUE, "imie1", "nazwisko1", "login1", "pass1");
-        UserInfo user2 = new UserInfo(Long.MIN_VALUE, "imie2", "nazwisko2", "login1", "pass1");
-        UserInfo user3 = new UserInfo(Long.MIN_VALUE, "imie3", "nazwisko3", "login1", "pass1");
-        UserInfo user4 = new UserInfo(Long.MIN_VALUE, "imie4", "nazwisko4", "login1", "pass1");
-
-        Set<Book> s1 = new HashSet<>();
-        Set<Book> s2 = new HashSet<>();
-        Set<Book> s3 = new HashSet<>();
-        Set<Book> s4 = new HashSet<>();
-
-        s1.add(book1);
-        s1.add(book2);
-        s1.add(book3);
-        s1.add(book4);
-
-        s2.add(book2);
-        s2.add(book3);
-        s2.add(book4);
-
-        s3.add(book2);
-        s3.add(book3);
-        s3.add(book4);
-
-        s4.add(book2);
-
-        user1.setBooks(s1);
-        user2.setBooks(s2);
-        user3.setBooks(s3);
-        user4.setBooks(s4);
-
-        allUsers.add(user1);
-        allUsers.add(user2);
-        allUsers.add(user3);
-        allUsers.add(user4);
-
-        List<Book> mostPopular = findMostPopular();
-
-        for (Book b : mostPopular) {
-            System.out.println("Kasiazka" + b.getTitle());
-        }
-
-    }
+//    public static void main(String[] args) {
+//
+//        Book book1 = new Book(Long.MIN_VALUE, "tytul1", "autor1", "publi1");
+//        Book book2 = new Book(Long.MIN_VALUE, "tytul2", "autor1", "publi1");
+//        Book book3 = new Book(Long.MIN_VALUE, "tytul3", "autor1", "publi1");
+//        Book book4 = new Book(Long.MIN_VALUE, "tytul4", "autor1", "publi1");
+//
+//        allBooks.add(book1);
+//        allBooks.add(book2);
+//        allBooks.add(book3);
+//        allBooks.add(book4);
+//
+//        UserInfo user1 = new UserInfo(Long.MIN_VALUE, "imie1", "nazwisko1", "login1", "pass1");
+//        UserInfo user2 = new UserInfo(Long.MIN_VALUE, "imie2", "nazwisko2", "login1", "pass1");
+//        UserInfo user3 = new UserInfo(Long.MIN_VALUE, "imie3", "nazwisko3", "login1", "pass1");
+//        UserInfo user4 = new UserInfo(Long.MIN_VALUE, "imie4", "nazwisko4", "login1", "pass1");
+//
+//        Set<Book> s1 = new HashSet<>();
+//        Set<Book> s2 = new HashSet<>();
+//        Set<Book> s3 = new HashSet<>();
+//        Set<Book> s4 = new HashSet<>();
+//
+//        s1.add(book1);
+//        s1.add(book2);
+//        s1.add(book3);
+//        s1.add(book4);
+//
+//        s2.add(book2);
+//        s2.add(book3);
+//        s2.add(book4);
+//
+//        s3.add(book2);
+//        s3.add(book3);
+//        s3.add(book4);
+//
+//        s4.add(book2);
+//
+//        user1.setBooks(s1);
+//        user2.setBooks(s2);
+//        user3.setBooks(s3);
+//        user4.setBooks(s4);
+//
+//        allUsers.add(user1);
+//        allUsers.add(user2);
+//        allUsers.add(user3);
+//        allUsers.add(user4);
+//
+//        List<Book> mostPopular = findMostPopular();
+//
+//        for (Book b : mostPopular) {
+//            System.out.println("Kasiazka" + b.getTitle());
+//        }
+//
+//    }
 
     public static List<Book> findMostPopular() {
         List<Book> books = allBooks;

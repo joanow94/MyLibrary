@@ -52,6 +52,7 @@ public class LoginController {
             model.addAttribute("userAlbums", albumService.findAllFromUser());
             model.addAttribute("userBooks", bookService.findAllFromUser());
             model.addAttribute("userMovies", movieService.findAllFromUser()); 
+            model.addAttribute("user", "admin"); 
             return "home";
         }
     }
