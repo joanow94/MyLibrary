@@ -49,10 +49,7 @@ public class AlbumService {
     /**
      * Add Album
      *
-     * @param title
-     * @param artist
-     * @param year
-     * @param genre
+     * @param album
      */
     public void addAlbum(Album album) {
         albumRepository.save(album);
@@ -80,8 +77,7 @@ public class AlbumService {
     /**
      * TODO Add Album To User
      *
-     * @param user
-     * @param idAlbum
+     * @param album
      */
     public void addToUser(Album album) {
         UserInfo admin = userRepository.findByFirstname("adminI");
@@ -89,7 +85,7 @@ public class AlbumService {
         albums.add(album);
         admin.setAlbums(albums);
     }
-    
+
     public void addToUser(Long idAlbum) {
         UserInfo admin = userRepository.findByFirstname("adminI");
         Album album = albumRepository.findOne(idAlbum);
@@ -101,7 +97,6 @@ public class AlbumService {
     /**
      * TODO Delete Album From User
      *
-     * @param user
      * @param idAlbum
      */
     public void deleteFromUser(Long idAlbum) {
@@ -124,7 +119,7 @@ public class AlbumService {
     public Set<Album> findAllFromUser() {
         return userRepository.findByFirstname("adminI").getAlbums();
     }
-    
+
     /**
      * getSortByPopularity
      *

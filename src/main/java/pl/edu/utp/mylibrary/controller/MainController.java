@@ -5,9 +5,13 @@
  */
 package pl.edu.utp.mylibrary.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.edu.utp.mylibrary.service.AlbumService;
+import pl.edu.utp.mylibrary.service.BookService;
+import pl.edu.utp.mylibrary.service.MovieService;
 
 /**
  *
@@ -17,13 +21,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class MainController {
 
+    @Autowired
+    AlbumService albumService;
+
+    @Autowired
+    BookService bookService;
+
+    @Autowired
+    MovieService movieService;
+
     @RequestMapping("")
     public String index(Model model) {
         return "index";
     }
-    
+
     @RequestMapping("/home")
     public String home(Model model) {
+        model.addAttribute("booksAmount", bookService.findAllFromUser().size());
+        model.addAttribute("albumsAmount", albumService.findAllFromUser().size());
+        model.addAttribute("moviesAmount", movieService.findAllFromUser().size());
         return "home";
     }
 }

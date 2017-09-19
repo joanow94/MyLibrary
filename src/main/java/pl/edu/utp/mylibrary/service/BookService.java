@@ -82,8 +82,7 @@ public class BookService {
     /**
      * Add Book To User
      *
-     * @param user
-     * @param id
+     * @param book
      */
     public void addToUser(Book book) {
         UserInfo admin = userRepository.findByFirstname("adminI");
@@ -103,7 +102,6 @@ public class BookService {
     /**
      * Delete Book From User
      *
-     * @param user
      * @param id
      */
     public void deleteFromUser(Long id) {
@@ -121,7 +119,6 @@ public class BookService {
     /**
      * Find All Books From User
      *
-     * @param user
      * @return
      */
     public Set<Book> findAllFromUser() {

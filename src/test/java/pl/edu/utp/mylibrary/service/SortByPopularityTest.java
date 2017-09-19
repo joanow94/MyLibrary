@@ -81,7 +81,6 @@ public class SortByPopularityTest {
 //        }
 //
 //    }
-
     public static List<Book> findMostPopular() {
         List<Book> books = allBooks;
         List<Book> sortBooks = new ArrayList<>();
@@ -95,8 +94,8 @@ public class SortByPopularityTest {
         for (Map.Entry entry : map.entrySet()) {
             sortBooks.add((Book) entry.getKey());
         }
-        
-        for(int i = sortBooks.size()-1; i>=0; i--){
+
+        for (int i = sortBooks.size() - 1; i >= 0; i--) {
             sortBooks2.add(sortBooks.get(i));
         }
 

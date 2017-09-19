@@ -37,10 +37,10 @@ public class ReportController {
 
     @Autowired
     BookService bookService;
-    
+
     @Autowired
     AlbumService albumService;
-    
+
     @Autowired
     MovieService movieService;
 
@@ -52,35 +52,24 @@ public class ReportController {
     @RequestMapping(path = "/report1", method = RequestMethod.GET)
     public ModelAndView report1() {
         Map<String, Object> model = new HashMap<>();
-
         List<Book> books = bookService.getSortByPopularity();
-
         model.put("books", books);
-
         return new ModelAndView(new PdfForReport1View(), model);
     }
-    
+
     @RequestMapping(path = "/report2", method = RequestMethod.GET)
     public ModelAndView report2() {
         Map<String, Object> model = new HashMap<>();
-
         List<Album> albums = albumService.getSortByPopularity();
-
         model.put("albums", albums);
-
         return new ModelAndView(new PdfForReport2View(), model);
     }
-    
+
     @RequestMapping(path = "/report3", method = RequestMethod.GET)
     public ModelAndView report3() {
         Map<String, Object> model = new HashMap<>();
-
         List<Movie> movies = movieService.getSortByPopularity();
-
         model.put("movies", movies);
-
         return new ModelAndView(new PdfForReport3View(), model);
     }
-
-
 }

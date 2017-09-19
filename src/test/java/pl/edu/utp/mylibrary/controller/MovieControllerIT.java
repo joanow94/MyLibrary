@@ -18,10 +18,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  *
- * @author nowakowska joanna
+ * @author jnowakowska
  */
-public class AlbumControllerIT {
-
+public class MovieControllerIT {
     private WebDriver browser;
     private int rowCount = 0;
 
@@ -42,14 +41,15 @@ public class AlbumControllerIT {
                 d.findElement(By.id("passwordField")).sendKeys("x");
                 d.findElement(By.id("loginButton")).click();
 
-                d.findElement(By.id("seeAlbums")).click();
+                d.findElement(By.id("seeMovies")).click();
                 rowCount = browser.findElements(By.xpath("//table[@id='DataTable']/tbody/tr")).size();
-                d.findElement(By.id("addAlbum")).click();
+                d.findElement(By.id("addBook")).click();
 
-                d.findElement(By.id("title")).sendKeys("Nevemind");
-                d.findElement(By.id("artist")).sendKeys("Nirvana");
-                d.findElement(By.id("year")).sendKeys("1994");
-                d.findElement(By.id("genre")).sendKeys("Grunge");
+                d.findElement(By.id("title")).sendKeys("Forest Gump");
+                d.findElement(By.id("director")).sendKeys("Dimitry Glukhovsky");
+                d.findElement(By.id("year")).sendKeys("2005");
+                d.findElement(By.id("country")).sendKeys("US");
+                d.findElement(By.id("genre")).sendKeys("Komedio-dramat");
 
                 d.findElement(By.id("add")).click();
 

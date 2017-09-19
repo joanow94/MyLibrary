@@ -31,24 +31,15 @@ public class BookController {
 
     private ItemValidator itemValidator;
 
-    //TODO: tymczasowo przed logowaniem 
-    UserInfo user;
-
     @RequestMapping("")
     public String books(Model model) {
-
         model.addAttribute("books", bookService.findAllFromUser());
-
-//        model.addAttribute("books", bookService.findAll());
         return "books";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteBook(Model model, @PathVariable("id") String id) {
         bookService.deleteFromUser(Long.parseLong(id));
-//        bookService.deleteBook(Long.parseLong(id));
-        //TODO: co z tym odświeżaniem
-//        model.addAttribute("books", bookService.findAll());
         model.addAttribute("books", bookService.findAllFromUser());
         return "books";
     }
@@ -83,24 +74,29 @@ public class BookController {
 
     @RequestMapping("/addNew/add")
     public String addNewBook(Model model, @RequestParam("title") String title, @RequestParam("author") String author, @RequestParam("publisher") String publisher) {
-//        if (itemValidator.isCorrectBook(title, author, publisher)) {
+        Boolean isError = false;
+        if (null == title || title.isEmpty()) {
+            model.addAttribute("titleError", ErrorInfo.EMPTY_FIELD.getInfo());
+            isError = true;
+        }
+        if (null == author || author.isEmpty()) {
+            model.addAttribute("authorError", ErrorInfo.EMPTY_FIELD.getInfo());
+            isError = true;
+        }
+        if (null == publisher || publisher.isEmpty()) {
+            model.addAttribute("publisherError", ErrorInfo.EMPTY_FIELD.getInfo());
+            isError = true;
+        }
+        if (isError) {
+            return "addBook";
+        }
+
         Book book = new Book(null, title, author, publisher);
         bookService.save(book);
         bookService.addToUser(book);
+
         model.addAttribute("books", bookService.findAllFromUser());
         return "books";
-//        } else {
-//            if (null != itemValidator.validateField(title)) {
-//                model.addAttribute("titleError", itemValidator.validateField(title));
-//            }
-//            if (null != itemValidator.validateField(author)) {
-//                model.addAttribute("authorError", itemValidator.validateField(author));
-//            }
-//            if (null != itemValidator.validateField(publisher)) {
-//                model.addAttribute("publisherError", itemValidator.validateField(publisher));
-//            }
-//            return "addBook";
-//        }
     }
 
 }

@@ -31,21 +31,15 @@ public class MovieController {
 
     private ItemValidator itemValidator;
 
-    //TODO: tymczasowo przed logowaniem 
-    UserInfo user;
-
     @RequestMapping("")
     public String movies(Model model) {
-
         model.addAttribute("movies", movieService.findAllFromUser());
-
         return "movies";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteMovie(Model model, @PathVariable("id") String id) {
         movieService.deleteFromUser(Long.parseLong(id));
-        //TODO: co z tym odświeżaniem
         model.addAttribute("movies", movieService.findAllFromUser());
         return "movies";
     }
@@ -79,30 +73,34 @@ public class MovieController {
 
     @RequestMapping("/addNew/add")
     public String addNewMovie(Model model, @RequestParam("title") String title, @RequestParam("director") String director, @RequestParam("year") String year, @RequestParam("country") String country, @RequestParam("genre") String genre) {
-//        if (itemValidator.isCorrectMovie(title, director, year, country, genre)) {
+        Boolean isError = false;
+        if (null == title || title.isEmpty()) {
+            model.addAttribute("titleError", ErrorInfo.EMPTY_FIELD.getInfo());
+            isError = true;
+        }
+        if (null == director || director.isEmpty()) {
+            model.addAttribute("directorError", ErrorInfo.EMPTY_FIELD.getInfo());
+            isError = true;
+        }
+        if (null == country || country.isEmpty()) {
+            model.addAttribute("countryError", ErrorInfo.EMPTY_FIELD.getInfo());
+            isError = true;
+        }
+        if (null == year || year.isEmpty()) {
+            model.addAttribute("yearError", ErrorInfo.EMPTY_FIELD.getInfo());
+            isError = true;
+        }
+        if (null == genre || genre.isEmpty()) {
+            model.addAttribute("genreError", ErrorInfo.EMPTY_FIELD.getInfo());
+            isError = true;
+        }
+        if (isError) {
+            return "addMovie";
+        }
         Movie movie = new Movie(null, title, director, year, country, genre);
         movieService.addMovie(movie);
         movieService.addToUser(movie);
-        //TODO: dodac do usera
         model.addAttribute("movies", movieService.findAllFromUser());
         return "movies";
-//        } else {
-//            if (null != itemValidator.validateField(title)) {
-//                model.addAttribute("titleError", itemValidator.validateField(title));
-//            }
-//            if (null != itemValidator.validateField(director)) {
-//                model.addAttribute("directorError", itemValidator.validateField(director));
-//            }
-//            if (null != itemValidator.validateField(country)) {
-//                model.addAttribute("countryError", itemValidator.validateField(country));
-//            }
-//            if (null != itemValidator.validateField(year)) {
-//                model.addAttribute("yearError", itemValidator.validateField(year));
-//            }
-//            if (null != itemValidator.validateField(genre)) {
-//                model.addAttribute("genreError", itemValidator.validateField(genre));
-//            }
-//            return "addMovie";
-//        }
     }
 }

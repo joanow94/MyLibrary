@@ -31,10 +31,9 @@
                                 <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                             </a>
 
-                            <!--TODO: wstawić href w linkach i ustawić opcje (logowanie, rejestracja itp)-->
                             <ul class="dropdown-menu dropdown-user">
                                 <li><a href="#"><i class="fa fa-user fa-fw"></i> Twój profil</a>
-                                    
+
                                 </li>
                                 <li><a href="#"><i class="fa fa-gear fa-fw"></i> Ustawienia</a>
                                 </li>
@@ -50,17 +49,18 @@
                         <div class="sidebar-nav navbar-collapse">
                             <ul class="nav" id="side-menu">
 
-                                <!--TODO: Wyszukiwarka, jak chcesz to zostaw, jak nie to wywal xd-->
-                                <li class="sidebar-search">
-                                    <div class="input-group custom-search-form">
-                                        <input type="text" class="form-control" placeholder="Szukaj..." />
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </li>
+                                <div class="sidebar-search">
+                                    <form role="form" action="/MyLibrary/searcher">
+                                        <div class="input-group custom-search-form">
+                                            <input type="text" class="form-control" placeholder="Wyszukaj..." name="searchTerm" />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="submit">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
 
                                 <li>
                                     <a href="/MyLibrary/home"><i class="fa fa-dashboard fa-fw"></i> Strona Główna</a>
@@ -68,21 +68,18 @@
                                 <li>
                                     <a href="/MyLibrary/ranking"><i class="fa fa-star fa-fw"></i> Ranking</a>
                                 </li>
-                                 <li>
-                                    <a href="/MyLibrary/sets"><i class="fa fa-search fa-fw"></i> Wyszukaj</a>
-                                </li>
 
                                 <li>
                                     <a href="#"><i class="fa fa-table fa-fw"></i> Przeglądaj<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                         <li>
-                                            <a href="/MyLibrary/books"><i class="fa fa-book fa-fw">Książki</i></a>
+                                            <a href="/MyLibrary/books"><i class="fa fa-book fa-fw"> Książki</i></a>
                                         </li>
                                         <li>
-                                            <a href="/MyLibrary/albums"><i class="fa fa-music fa-fw">Płyty</i></a>
+                                            <a href="/MyLibrary/albums"><i class="fa fa-music fa-fw"> Płyty</i></a>
                                         </li>
                                         <li>
-                                            <a href="/MyLibrary/movies"><i class="fa fa-film fa-fw">Filmy</i></a>
+                                            <a href="/MyLibrary/movies"><i class="fa fa-film fa-fw"> Filmy</i></a>
                                         </li>
                                     </ul>
                                 </li>

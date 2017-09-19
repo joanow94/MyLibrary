@@ -5,21 +5,23 @@
  */
 package pl.edu.utp.mylibrary.helper;
 
+import org.springframework.stereotype.Service;
 import pl.edu.utp.mylibrary.enums.ErrorInfo;
 
 /**
  *
  * @author nowakowska joanna
  */
+@Service
 public class ItemValidator {
 
     public String validateField(String stringField) {
         if (null == stringField || stringField.length() < 1) {
-            return ErrorInfo.EMPTY_FIELD.getInfo();
+            return ErrorInfo.EMPTY_FIELD.toString();
         } else if (stringField.length() > 5) {
-            return ErrorInfo.MAX_LENGTH.getInfo();
+            return ErrorInfo.MAX_LENGTH.toString();
         } else {
-            return null;
+            return "";
         }
     }
 

@@ -6,6 +6,7 @@
 package pl.edu.utp.mylibrary.controller;
 
 import java.util.List;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,26 +27,22 @@ import pl.edu.utp.mylibrary.service.AlbumService;
 @RequestMapping("/albums")
 public class AlbumController {
 
+    private static final Logger LOG = Logger.getLogger(AlbumController.class.getName());
+
     @Autowired
     private AlbumService albumService;
 
     private ItemValidator itemValidator;
 
-    //TODO: tymczasowo przed logowaniem 
-    UserInfo user;
-
     @RequestMapping("")
     public String albums(Model model) {
-
         model.addAttribute("albums", albumService.findAllFromUser());
-
         return "albums";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteAlbum(Model model, @PathVariable("id") String id) {
         albumService.deleteFromUser(Long.parseLong(id));
-        //TODO: co z tym odświeżaniem
         model.addAttribute("albums", albumService.findAllFromUser());
         return "albums";
     }
@@ -82,25 +79,25 @@ public class AlbumController {
     public String addNewAlbum(Model model, @RequestParam("title") String title, @RequestParam("artist") String artist, @RequestParam("year") String year, @RequestParam("genre") String genre) {
         Boolean isError = false;
 
-//        if (null != itemValidator.validateField(title)) {
-//            model.addAttribute("titleError", itemValidator.validateField(title));
-//            isError = true;
-//        }
-//        if (null != itemValidator.validateField(artist)) {
-//            model.addAttribute("artistError", itemValidator.validateField(artist));
-//            isError = true;
-//        }
-//        if (null != itemValidator.validateField(year)) {
-//            model.addAttribute("yearError", itemValidator.validateField(year));
-//            isError = true;
-//        }
-//        if (null != itemValidator.validateField(genre)) {
-//            model.addAttribute("genreError", itemValidator.validateField(genre));
-//            isError = true;
-//        }
-//        if (isError) {
-//            return "addAlbum";
-//        }
+        if (null == title || title.isEmpty()) {
+            model.addAttribute("titleError", ErrorInfo.EMPTY_FIELD.getInfo());
+            isError = true;
+        }
+        if (null == artist || artist.isEmpty()) {
+            model.addAttribute("artistError", ErrorInfo.EMPTY_FIELD.getInfo());
+            isError = true;
+        }
+        if (null == year || year.isEmpty()) {
+            model.addAttribute("yearError", ErrorInfo.EMPTY_FIELD.getInfo());
+            isError = true;
+        }
+        if (null == genre || genre.isEmpty()) {
+            model.addAttribute("genreError", ErrorInfo.EMPTY_FIELD.getInfo());
+            isError = true;
+        }
+        if (isError) {
+            return "addAlbum";
+        }
         Album album = new Album(null, title, artist, year, genre);
         albumService.addAlbum(album);
         albumService.addToUser(album);

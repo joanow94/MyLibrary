@@ -12,31 +12,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <meta name="description" content=""/>
         <meta name="author" content=""/>
-        
-        <!--TODO: Tutaj ustawiasz jakieś mety, srety, pierdety i inne gwiazdozbiory, ale chyba tyle wystarczy :P-->
+
         <title>MyLibrary</title>
-        
+
         <h:outputScript library="js" name="jquery.min.js" />
         <h:outputScript library="js" name="bootstrap.min.js" />
         <h:outputScript library="js" name="sb-admin-2.min.js" />
-        
+
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
         <h:outputStylesheet library="css" name="sb-admin-2.min.css" />
         <h:outputStylesheet library="css" name="font-awesome.min.css" />
     </h:head>
     <h:body>
-        
+
         <ui:insert name="header">
             <ui:include src="header.xhtml" />
         </ui:insert>
-        
+
         <ui:insert name="content">
             <ui:include src="content.xhtml" />
         </ui:insert>
-        
+
         <ui:insert name="footer">
             <ui:include src="footer.xhtml" />
         </ui:insert>
-        
+
     </h:body>
 </html>

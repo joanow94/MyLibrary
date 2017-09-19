@@ -47,12 +47,14 @@ public class LoginController {
             model.addAttribute("loginForm", "#loginForm");
             return "index";
         } else {
-            //TODO: To tak nie działa
             model.addAttribute("user", user);
             model.addAttribute("userAlbums", albumService.findAllFromUser());
             model.addAttribute("userBooks", bookService.findAllFromUser());
-            model.addAttribute("userMovies", movieService.findAllFromUser()); 
-            model.addAttribute("user", "admin"); 
+            model.addAttribute("userMovies", movieService.findAllFromUser());
+            model.addAttribute("user", "admin");
+            model.addAttribute("booksAmount", bookService.findAllFromUser().size());
+            model.addAttribute("albumsAmount", albumService.findAllFromUser().size());
+            model.addAttribute("moviesAmount", movieService.findAllFromUser().size());
             return "home";
         }
     }
